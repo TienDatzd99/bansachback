@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS seller_requests (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  user_id BIGINT NOT NULL,
+  logo_url VARCHAR(255) DEFAULT NULL,
+  username VARCHAR(80) NOT NULL,
+  shop_name VARCHAR(120) NOT NULL,
+  description TEXT DEFAULT NULL,
+  contact_email VARCHAR(100) NOT NULL,
+  contact_phone VARCHAR(20) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'pending',
+  reject_reason VARCHAR(255) DEFAULT NULL,
+  created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  PRIMARY KEY (id),
+  UNIQUE KEY UK_seller_requests_username (username),
+  UNIQUE KEY UK_seller_requests_shop_name (shop_name),
+  KEY IDX_seller_requests_user_id (user_id),
+  KEY IDX_seller_requests_status (status),
+  CONSTRAINT FK_seller_requests_user_id FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

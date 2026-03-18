@@ -1,0 +1,3 @@
+ALTER TABLE books
+  ADD COLUMN mrp DECIMAL(10,2) NULL AFTER price,
+  ADD COLUMN discount_percent DECIMAL(5,2) NULL AFTER mrp;

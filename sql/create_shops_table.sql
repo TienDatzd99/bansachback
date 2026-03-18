@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS shops (
+  shop_id   BIGINT        NOT NULL AUTO_INCREMENT,
+  user_id   BIGINT        NOT NULL,
+  shop_name VARCHAR(200)  NOT NULL,
+  description TEXT        NULL,
+  logo_url  VARCHAR(500)  NULL,
+  created_at DATETIME(6)  NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updated_at DATETIME(6)  NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+
+  PRIMARY KEY (shop_id),
+  UNIQUE KEY uq_shops_user_id (user_id),
+  CONSTRAINT fk_shops_user FOREIGN KEY (user_id) REFERENCES users (user_id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
