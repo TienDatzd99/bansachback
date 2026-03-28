@@ -20,15 +20,15 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 
 @ApiTags('Categories')
-@ApiBearerAuth()
 @Controller('categories')
-@UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('ROLE_ADMIN')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ROLE_ADMIN')
   @UsePipes(ValidationPipe)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create category' })
   @ApiBody({ type: CreateCategoryDto })
   create(@Body() createCategoryDto: CreateCategoryDto) {
@@ -48,7 +48,10 @@ export class CategoryController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ROLE_ADMIN')
   @UsePipes(ValidationPipe)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update category by id' })
   @ApiBody({ type: UpdateCategoryDto })
   update(
@@ -59,6 +62,9 @@ export class CategoryController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('ROLE_ADMIN')
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete category by id' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.categoryService.remove(id);
